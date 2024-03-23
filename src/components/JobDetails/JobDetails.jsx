@@ -1,0 +1,39 @@
+import { useLoaderData, useParams } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { saveJobApplication } from "../../utility/localstorage";
+
+const JobDetails = () => {
+    const jobs =useLoaderData();
+    const {id} =useParams();
+    const idInt= parseInt(id);
+    const job = jobs.find(job =>job.id === idInt)
+   
+    console.log(job); 
+
+    const handleApplyJob=()=>{
+        saveJobApplication(idInt);
+        toast('You have apply seccessfully')
+    }
+    
+    return (
+        <div>
+            <div className="grid gap-4 p-6 md:grid-cols-4 ">
+                <div className="border md:col-span-3 ">
+                    <h2 className="tect-4xl"> Details comming here</h2>
+            <h2>JOB details :{job.job_title}</h2>
+
+                    <p>{job.company_name}</p>
+                </div>
+                <div className="border">
+                    <h2 className="text-2xl">Side Things</h2>
+                    <button onClick={handleApplyJob} className="btn btn-primary w-full"> APPLY now</button>
+                </div>
+            </div>
+            <ToastContainer />
+
+        </div>
+    );
+};
+
+export default JobDetails;
